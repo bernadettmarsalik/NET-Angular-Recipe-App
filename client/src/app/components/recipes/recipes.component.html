@@ -7,10 +7,10 @@
       </figure>
       <div class="card-body">
         <p>{{item.ingredients}}</p>
-        <p>{{item.description }}</p>
-        <p>{{item.minutes}} min</p>
-        <div class="card-actions justify-end gap-5">
-          <button class="btn" (click)="openModal(item)">Read more
+        <p>{{ item.description | truncate:200 }}</p>
+        <div class="card-actions justify-end items-center gap-5">
+          <p><i class="fa-regular fa-clock"></i> {{item.minutes}} min</p>
+          <button class="btn" (click)="openModal(item)">Read recipe
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </button>
           <button class="btn btn-circle btn-outline btn-success" [routerLink]="['/recipes/', item.id]">
@@ -31,7 +31,7 @@
     <h3 class="font-bold text-lg">{{ selectedRecipe?.name }}</h3>
     <p class="py-4">{{ selectedRecipe?.description }}</p>
     <p class="py-4">{{ selectedRecipe?.ingredients }}</p>
-    <p class="py-4">{{ selectedRecipe?.minutes }} min</p>
+    <p class="py-4"> <i class="fa-regular fa-clock"></i> {{ selectedRecipe?.minutes }} min</p>
     <div class="modal-action">
       <button class="btn" (click)="closeModal()">Close</button>
     </div>
