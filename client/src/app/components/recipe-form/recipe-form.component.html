@@ -1,0 +1,12 @@
+<form [formGroup]="form" class="shadow">
+  <div class=" flex flex-col">
+<input formControlName="name" type="text" name="Name" id="Name" placeholder="Name" class="border my-3 p-2 rounded-md">
+<textarea formControlName="ingredients" name="Ingredients" id="Ingredients" placeholder="Ingredients" class="border my-3 p-2 rounded-md"></textarea>
+<textarea formControlName="description" name="Description" id="Description" placeholder="Description" class="border my-3 p-2 rounded-md"></textarea>
+<input formControlName="minutes" type="number" name="Minutes" id="Minutes" placeholder="Minutes" class="border my-3 p-2 rounded-md">
+  </div>
+  <button type="submit" class="btn btn-primary mr-3" (click)="saveRecipe()">          
+    {{ id ? "Update" : "Create" }}
+  </button>
+  <button type="button" class="btn" [routerLink]="['/recipes']">Cancel</button>
+</form>""
