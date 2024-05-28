@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Recipe } from 'src/app/models/recipe';
@@ -17,9 +17,12 @@ export class RecipeFormComponent implements OnInit {
   subRecipe?: Subscription;
   subRoute?: Subscription;
   subSaveOrUpdate?: Subscription;
-constructor( private router: Router,
-  private recipeService: RecipeService,
-  private activatedRoute: ActivatedRoute) {}
+
+  constructor(
+    private router: Router,
+    private recipeService: RecipeService,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -38,8 +41,7 @@ constructor( private router: Router,
         Validators.minLength(1),
         Validators.maxLength(5000),
       ]),
-      minutes: new FormControl("", [
-      ]),
+      minutes: new FormControl("", []),
     });
 
     this.subRoute = this.activatedRoute.paramMap.subscribe((params) => {
@@ -72,11 +74,9 @@ constructor( private router: Router,
     return this.form.get("minutes");
   }
 
- 
-
   saveRecipe() {
-    if (!this.form.valid) {
-      console.log("Not a valid recipe!");
+    if (!this.form.valid || this.form.pristine) {
+      console.log("Form is either invalid or unchanged.");
       return;
     }
 

@@ -10,8 +10,6 @@ import { RecipeService } from 'src/app/services/recipe.service';
 })
 export class RecipesComponent implements OnInit, OnDestroy {
 
-
- 
  recipes$!: Observable<Recipe[]>;
  subDeleteRecipe?: Subscription;
  recipeService = inject(RecipeService);

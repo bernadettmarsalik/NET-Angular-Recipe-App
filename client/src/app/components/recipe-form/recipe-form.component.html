@@ -1,12 +1,55 @@
-<form [formGroup]="form" class="shadow">
-  <div class=" flex flex-col">
-<input formControlName="name" type="text" name="Name" id="Name" placeholder="Name" class="border my-3 p-2 rounded-md">
-<textarea formControlName="ingredients" name="Ingredients" id="Ingredients" placeholder="Ingredients" class="border my-3 p-2 rounded-md"></textarea>
-<textarea formControlName="description" name="Description" id="Description" placeholder="Description" class="border my-3 p-2 rounded-md"></textarea>
-<input formControlName="minutes" type="number" name="Minutes" id="Minutes" placeholder="Minutes" class="border my-3 p-2 rounded-md">
+<form [formGroup]="form" class="shadow p-5">
+  <div class="flex flex-col">
+    <input
+      formControlName="name"
+      type="text"
+      name="Name"
+      id="Name"
+      placeholder="Name"
+      class="border my-3 p-2 rounded-md"
+    />
+    <small *ngIf="name?.invalid && name?.dirty" class="text-red-500">
+      *Required! Must be 1-20 characters!
+    </small>
+    <textarea
+      formControlName="ingredients"
+      name="Ingredients"
+      id="Ingredients"
+      placeholder="Ingredients"
+      class="border my-3 p-2 rounded-md"
+    ></textarea>
+    <small *ngIf="ingredients?.invalid && ingredients?.dirty" class="text-red-500">
+      *Required! Must be 1-100 characters!
+    </small>
+    <textarea
+      formControlName="description"
+      name="Description"
+      id="Description"
+      placeholder="Description"
+      class="border my-3 p-2 rounded-md"
+    ></textarea>
+    <small *ngIf="description?.invalid && description?.dirty" class="text-red-500">
+      *Required! Must be 1-5000 characters!
+    </small>
+    <input
+      formControlName="minutes"
+      type="number"
+      name="Minutes"
+      id="Minutes"
+      placeholder="Minutes"
+      class="border my-3 p-2 rounded-md"
+    />
   </div>
-  <button type="submit" class="btn btn-primary mr-3" (click)="saveRecipe()">          
+  <button
+    type="submit"
+    class="btn btn-primary mr-3"
+    [disabled]="!form.valid || form.pristine"
+    (click)="saveRecipe()"
+  >
     {{ id ? "Update" : "Create" }}
-  </button>
-  <button type="button" class="btn" [routerLink]="['/recipes']">Cancel</button>
-</form>""
+  </button> 
+  <small *ngIf="form.pristine" class="text-gray-500">
+    No changes.
+  </small>
+  <button type="button" class="btn ml-3" [routerLink]="['/recipes']">Cancel</button>
+</form>
