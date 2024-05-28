@@ -10,13 +10,19 @@ import { RecipeComponent } from './components/recipe/recipe.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { ToastrModule, provideToastr } from 'ngx-toastr';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipesComponent,
     RecipeFormComponent,
-    RecipeComponent
+    RecipeComponent,
+    NavbarComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
