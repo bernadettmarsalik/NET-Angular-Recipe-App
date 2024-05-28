@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, inject } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Observable, Subscription } from 'rxjs';
 import { Recipe } from 'src/app/models/recipe';
 import { RecipeService } from 'src/app/services/recipe.service';
@@ -14,6 +15,10 @@ export class RecipesComponent implements OnInit, OnDestroy {
  subDeleteRecipe?: Subscription;
  recipeService = inject(RecipeService);
 
+
+ constructor(private toastrService: ToastrService
+ ) {}
+
  ngOnInit(): void {
    this.loadRecipes();
  }
@@ -23,15 +28,14 @@ export class RecipesComponent implements OnInit, OnDestroy {
    if (confirm("Are you sure you want to delete?")) {
      this.subDeleteRecipe = this.recipeService.deleteRecipe(Number(id)).subscribe({
        next: () => {
-         console.log("Delete complete!");
+        this.toastrService.success("Recipe deleted.")
          this.loadRecipes();  // Reload the list of recipes
        },
        error: (err: any) => {
-         console.error("Error deleting recipe:", err);
+        this.toastrService.error("Error deleting recipe. Try again.");
+
        },
-       complete: () => {
-         console.log("Delete request complete");
-       }
+      
      });
    }
  }

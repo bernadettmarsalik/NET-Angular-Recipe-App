@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { Recipe } from 'src/app/models/recipe';
 import { RecipeService } from 'src/app/services/recipe.service';
@@ -21,7 +22,8 @@ export class RecipeFormComponent implements OnInit {
   constructor(
     private router: Router,
     private recipeService: RecipeService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private toastrService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -76,7 +78,7 @@ export class RecipeFormComponent implements OnInit {
 
   saveRecipe() {
     if (!this.form.valid || this.form.pristine) {
-      console.log("Form is either invalid or unchanged.");
+      this.toastrService.error("Form is either invalid or unchanged.");
       return;
     }
 
@@ -87,16 +89,14 @@ export class RecipeFormComponent implements OnInit {
 
     this.subSaveOrUpdate = saveOrUpdate$.subscribe({
       next: (recipe: Recipe) => {
-        console.log(recipe);
+        this.toastrService.success("Recipe saved succesfully")
         this.form.reset();
         this.router.navigate(["recipes"]);
       },
       error: (err: any) => {
         console.log(err);
       },
-      complete: () => {
-        console.log("Save recipe done!");
-      },
+     
     });
   }
 

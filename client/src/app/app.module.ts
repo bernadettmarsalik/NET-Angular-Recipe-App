@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { RecipeFormComponent } from './components/recipe-form/recipe-form.component';
 import { RecipeComponent } from './components/recipe/recipe.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
+import { ToastrModule, provideToastr } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -20,9 +22,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
   ],
-  providers: [provideHttpClient(), Router, HttpClient],
+  providers: [provideHttpClient(), Router, HttpClient,   provideAnimations(), 
+  provideToastr(),  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
