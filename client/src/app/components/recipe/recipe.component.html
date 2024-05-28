@@ -1,1 +1,10 @@
-<p>recipe works!</p>
+<div *ngFor="let item of recipes$ | async" class="flex flex-col gap-8 p-5 card bg-base-100 shadow-xl">
+  <h2 class="text-center text-2xl font-semibold pb-3 border-b-2">{{item.name}}</h2>
+  <div class="text-xl">
+  <p>{{item.name}} min</p>
+  <p>{{item.minutes}} min</p>
+  <p>{{item.ingredients}}</p>  
+  <p>{{item.description  }}</p>
+  
+  </div>
+</div>

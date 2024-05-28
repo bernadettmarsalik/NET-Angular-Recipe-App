@@ -11,40 +11,53 @@ import { RecipeService } from 'src/app/services/recipe.service';
 })
 export class RecipesComponent implements OnInit, OnDestroy {
 
- recipes$!: Observable<Recipe[]>;
- subDeleteRecipe?: Subscription;
- recipeService = inject(RecipeService);
+  recipes$!: Observable<Recipe[]>;
+  subDeleteRecipe?: Subscription;
+  recipeService = inject(RecipeService);
 
+  selectedRecipe?: Recipe;
 
- constructor(private toastrService: ToastrService
- ) {}
+  constructor(private toastrService: ToastrService) {}
 
- ngOnInit(): void {
-   this.loadRecipes();
- }
+  ngOnInit(): void {
+    this.loadRecipes();
+  }
 
- // Delete recipe from list
- confirmDelete(id?: number) {
-   if (confirm("Are you sure you want to delete?")) {
-     this.subDeleteRecipe = this.recipeService.deleteRecipe(Number(id)).subscribe({
-       next: () => {
-        this.toastrService.success("Recipe deleted.")
-         this.loadRecipes();  // Reload the list of recipes
-       },
-       error: (err: any) => {
-        this.toastrService.error("Error deleting recipe. Try again.");
+  // Delete recipe from list
+  confirmDelete(id?: number) {
+    if (confirm("Are you sure you want to delete?")) {
+      this.subDeleteRecipe = this.recipeService.deleteRecipe(Number(id)).subscribe({
+        next: () => {
+          this.toastrService.success("Recipe deleted.");
+          this.loadRecipes();  // Reload the list of recipes
+        },
+        error: (err: any) => {
+          this.toastrService.error("Error deleting recipe. Try again.");
+        }
+      });
+    }
+  }
 
-       },
-      
-     });
-   }
- }
+  loadRecipes() {
+    this.recipes$ = this.recipeService.getRecipes();
+  }
 
- loadRecipes() {
-   this.recipes$ = this.recipeService.getRecipes();
- }
+  openModal(recipe: Recipe) {
+    this.selectedRecipe = recipe;
+    const modal = document.getElementById('my_modal_5') as HTMLDialogElement;
+    if (modal) {
+      modal.showModal();
+    }
+  }
 
- ngOnDestroy(): void {
-   this.subDeleteRecipe?.unsubscribe();
- }
+  closeModal() {
+    const modal = document.getElementById('my_modal_5') as HTMLDialogElement;
+    if (modal) {
+      modal.close();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subDeleteRecipe?.unsubscribe();
+  }
 }

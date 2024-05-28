@@ -22,7 +22,9 @@ import { FooterComponent } from './components/footer/footer.component';
     RecipeComponent,
     NavbarComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    
+
   ],
   imports: [
     BrowserModule,
